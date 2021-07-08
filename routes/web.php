@@ -9,7 +9,8 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 });
 
-Auth::routes(['register' => false]);
+Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');
+Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -25,9 +26,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
 
-    // Audit Logs
-    Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
-
     // Profile Type
     Route::delete('profile-types/destroy', 'ProfileTypeController@massDestroy')->name('profile-types.massDestroy');
     Route::resource('profile-types', 'ProfileTypeController');
@@ -37,6 +35,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('profile-pages/media', 'ProfilePageController@storeMedia')->name('profile-pages.storeMedia');
     Route::post('profile-pages/ckmedia', 'ProfilePageController@storeCKEditorImages')->name('profile-pages.storeCKEditorImages');
     Route::resource('profile-pages', 'ProfilePageController');
+
+    // Audit Logs
+    Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
     // Contact Icon
     Route::delete('contact-icons/destroy', 'ContactIconController@massDestroy')->name('contact-icons.massDestroy');
@@ -81,6 +82,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('agendas', 'AgendaController');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
+    Route::get('messenger', 'MessengerController@index')->name('messenger.index');
+    Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
+    Route::post('messenger', 'MessengerController@storeTopic')->name('messenger.storeTopic');
+    Route::get('messenger/inbox', 'MessengerController@showInbox')->name('messenger.showInbox');
+    Route::get('messenger/outbox', 'MessengerController@showOutbox')->name('messenger.showOutbox');
+    Route::get('messenger/{topic}', 'MessengerController@showMessages')->name('messenger.showMessages');
+    Route::delete('messenger/{topic}', 'MessengerController@destroyTopic')->name('messenger.destroyTopic');
+    Route::post('messenger/{topic}/reply', 'MessengerController@replyToTopic')->name('messenger.reply');
+    Route::get('messenger/{topic}/reply', 'MessengerController@showReply')->name('messenger.showReply');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
