@@ -9,6 +9,12 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 });
 
+Route::get('users/home', 'User\HomeController@index');
+Route::get('users/umkm', 'User\HomeController@umkm');
+Route::get('users/organization/{id}', 'User\HomeController@organization');
+Route::get('users/show/{id}', 'User\HomeController@show');
+Route::get('users/profile/{id}', 'User\HomeController@profile');
+
 Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');
 Auth::routes();
 
