@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="float-end d-none d-md-block">
-                                <a href="{{url('/users/show')}}" class="more-link">Continue reading<i class="icon-arrow-right"></i></a>
+                                <a href="{{url('/users/show',$item->id)}}" class="more-link">Continue reading<i class="icon-arrow-right"></i></a>
                             </div>
                             <div class="more-button d-block d-md-none float-end">
                                 <a href="blog-single.html"><span class="icon-options"></span></a>

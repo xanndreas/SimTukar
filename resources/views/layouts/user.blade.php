@@ -69,30 +69,32 @@
                 <div class="collapse navbar-collapse">
                     <!-- menus -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href="index.html">Home</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{url('users/home')}}">Beranda</a>
+                        </li>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="">Profil</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="index.html">Magazine</a></li>
-                                <li><a class="dropdown-item" href="personal.html">Personal</a></li>
-                                <li><a class="dropdown-item" href="personal-alt.html">Personal Alt</a></li>
-                                <li><a class="dropdown-item" href="minimal.html">Minimal</a></li>
-                                <li><a class="dropdown-item" href="classic.html">Classic</a></li>
+                                @foreach($profileType as $key=>$profile)
+                                <li><a class="dropdown-item" href="{{url('users/profile',$profile->id)}}">{{$profile->name}}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="category.html">Lifestyle</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="category.html">Inspiration</a>
+                            <a class="nav-link" href="category.html">Layanan Publik</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#">Pages</a>
+                            <a class="nav-link dropdown-toggle" href="#">Informasi Publik</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="category.html">Category</a></li>
-                                <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
-                                <li><a class="dropdown-item" href="blog-single-alt.html">Blog Single Alt</a></li>
-                                <li><a class="dropdown-item" href="about.html">About</a></li>
-                                <li><a class="dropdown-item" href="contact.html">Contact</a></li>
+                                <li><a class="dropdown-item" href="{{url('users/umkm')}}">UMKM</a></li>
+                                <li class="nav-item dropdown dropdown-item">
+                                    <a class="nav-link dropdown-toggle" href="#">Informasi Publik</a>
+                                    <ul class="dropdown-menu">
+                                        @foreach($organization as $key=>$org)
+                                        <li><a class="dropdown-item" href="{{url('users/organization',$org->id)}}">{{$org->name}}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -108,19 +110,17 @@
                         <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                         <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
                         <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-medium"></i></a></li>
                         <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
                     </ul>
                     <!-- header buttons -->
-                    <div class="header-buttons">
-                        <button class="search icon-button">
-                            <i class="icon-magnifier"></i>
-                        </button>
-                        <button class="burger-menu icon-button">
-                            <span class="burger-icon"></span>
-                        </button>
-                    </div>
+{{--                    <div class="header-buttons">--}}
+{{--                        <button class="search icon-button">--}}
+{{--                            <i class="icon-magnifier"></i>--}}
+{{--                        </button>--}}
+{{--                        <button class="burger-menu icon-button">--}}
+{{--                            <span class="burger-icon"></span>--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </nav>
@@ -144,8 +144,6 @@
                             <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-medium"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
                         </ul>
                     </div>
@@ -191,26 +189,24 @@
     <!-- menu -->
     <nav>
         <ul class="vertical-menu">
-            <li class="active">
-                <a href="index.html">Home</a>
+            <li class="active"><a href="category.html">Beranda</a></li>
+            <li>
+                <a href="index.html">Profil</a>
                 <ul class="submenu">
-                    <li><a href="index.html">Magazine</a></li>
-                    <li><a href="personal.html">Personal</a></li>
-                    <li><a href="personal-alt.html">Personal Alt</a></li>
-                    <li><a href="minimal.html">Minimal</a></li>
-                    <li><a href="classic.html">Classic</a></li>
+                    <li><a href="index.html">Sejarah Kelurahan</a></li>
+                    <li><a href="personal.html">Visi Misi</a></li>
+                    <li><a href="personal-alt.html">Struktur Organisasi</a></li>
+                    <li><a href="minimal.html">Monografi</a></li>
+                    <li><a href="classic.html">Prestasi</a></li>
+                    <li><a href="classic.html">Sarana Pendidikan</a></li>
                 </ul>
             </li>
-            <li><a href="category.html">Lifestyle</a></li>
-            <li><a href="category.html">Inspiration</a></li>
+            <li><a href="category.html">Layanan Publik</a></li>
             <li>
-                <a href="#">Pages</a>
+                <a href="#">Informasi Publik</a>
                 <ul class="submenu">
-                    <li><a href="category.html">Category</a></li>
-                    <li><a href="blog-single.html">Blog Single</a></li>
-                    <li><a href="blog-single-alt.html">Blog Single Alt</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="category.html">UMKM</a></li>
+                    <li><a href="blog-single.html">Organisasi</a></li>
                 </ul>
             </li>
             <li><a href="contact.html">Contact</a></li>
@@ -222,8 +218,6 @@
         <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
         <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
         <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-        <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-        <li class="list-inline-item"><a href="#"><i class="fab fa-medium"></i></a></li>
         <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
     </ul>
 </div>
