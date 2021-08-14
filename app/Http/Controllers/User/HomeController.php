@@ -22,30 +22,34 @@ class HomeController extends Controller
 
     public function index()
     {
-        $news = NewsPage::all()->load('user', 'organization', 'tags', 'created_by');
+        $news = NewsPage::with('user', 'organization', 'tags', 'created_by')->orderBy('id','desc')->get();
         $profileType = $this->getProfileTypes();
-        return view('user.home.index',compact('news','profileType'));
+        $organization = Organization::all();
+        return view('user.home.index',compact('news','profileType','organization'));
     }
 
     public function show($i){
         $newsPage = NewsPage::with('user','organization','tags','created_by')->where('id',$i)->get();
         $tags = Tag::all();
         $profileType = $this->getProfileTypes();
+        $organization = Organization::all();
         $comments = Comment::with('news_page','user')->where('berita_id',$i)->get();
-        return view('user.single-news.index', compact('newsPage','tags','comments','profileType'));
+        return view('user.single-news.index', compact('organization','newsPage','tags','comments','profileType'));
     }
 
     public function profile($i){
         $profileType = $this->getProfileTypes();
         $profile = ProfilePage::with('profile_type')->where('profile_type_id',$i)->get();
         $type = ProfileType::where('id',$i)->get();
-        return view('user.profile.index', compact('profile','type','profileType'));
+        $organization = Organization::all();
+        return view('user.profile.index', compact('profile','organization','type','profileType'));
     }
 
     public function umkm(){
         $profileType = $this->getProfileTypes();
         $umkm = Umkm::all()->load('contact_detail');
-        return view('user.informasi-publik.umkm', compact('umkm','profileType'));
+        $organization = Organization::all();
+        return view('user.informasi-publik.umkm', compact('umkm','organization','profileType'));
     }
 
     public function organization(){

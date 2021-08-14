@@ -83,18 +83,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="category.html">Layanan Publik</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#">Informasi Publik</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href=""{{url('users/umkm')}}"">UMKM</a>
+                        </li>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="">Organisasi</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{url('users/umkm')}}">UMKM</a></li>
-                                <li class="nav-item dropdown dropdown-item">
-                                    <a class="nav-link dropdown-toggle" href="#">Informasi Publik</a>
-                                    <ul class="dropdown-menu">
-                                        @foreach($organization as $key=>$org)
-                                        <li><a class="dropdown-item" href="{{url('users/organization',$org->id)}}">{{$org->name}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </li>
+                                @foreach($organization as $key=>$org)
+                                    <li><a class="dropdown-item" href="{{url('users/organization',$org->id)}}">{{$org->name}}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                         <li class="nav-item">
