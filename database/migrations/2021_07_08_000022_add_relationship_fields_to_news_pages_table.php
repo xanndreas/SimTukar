@@ -15,6 +15,8 @@ class AddRelationshipFieldsToNewsPagesTable extends Migration
             $table->foreign('organization_id', 'organization_fk_4334960')->references('id')->on('organizations');
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->foreign('created_by_id', 'created_by_fk_4334965')->references('id')->on('users');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id', 'categories_fk_4334965')->references('id')->on('categories');
         });
     }
 }

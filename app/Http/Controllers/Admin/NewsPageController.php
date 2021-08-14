@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyNewsPageRequest;
 use App\Http\Requests\StoreNewsPageRequest;
 use App\Http\Requests\UpdateNewsPageRequest;
+use App\Models\Category;
 use App\Models\NewsPage;
 use App\Models\Organization;
 use App\Models\Tag;
@@ -26,7 +27,7 @@ class NewsPageController extends Controller
         abort_if(Gate::denies('news_page_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = NewsPage::with(['user', 'organization', 'tags', 'created_by'])->select(sprintf('%s.*', (new NewsPage())->table));
+            $query = NewsPage::with(['user', 'organization', 'tags', 'category', 'created_by'])->select(sprintf('%s.*', (new NewsPage())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -75,6 +76,10 @@ class NewsPageController extends Controller
                 return $row->organization ? $row->organization->name : '';
             });
 
+            $table->addColumn('category_name', function ($row) {
+                return $row->category ? $row->category->name : '';
+            });
+
             $table->editColumn('tag', function ($row) {
                 $labels = [];
                 foreach ($row->tags as $tag) {
@@ -84,7 +89,7 @@ class NewsPageController extends Controller
                 return implode(' ', $labels);
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'photos', 'user', 'organization', 'tag']);
+            $table->rawColumns(['actions', 'placeholder', 'photos', 'user', 'organization', 'category', 'tag']);
 
             return $table->make(true);
         }
@@ -92,8 +97,9 @@ class NewsPageController extends Controller
         $users         = User::get();
         $organizations = Organization::get();
         $tags          = Tag::get();
+        $categories    = Category::get();
 
-        return view('admin.newsPages.index', compact('users', 'organizations', 'tags'));
+        return view('admin.newsPages.index', compact('users', 'organizations', 'tags', 'categories'));
     }
 
     public function create()
@@ -106,7 +112,9 @@ class NewsPageController extends Controller
 
         $tags = Tag::all()->pluck('name', 'id');
 
-        return view('admin.newsPages.create', compact('users', 'organizations', 'tags'));
+        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.newsPages.create', compact('users', 'organizations', 'tags', 'categories'));
     }
 
     public function store(StoreNewsPageRequest $request)
@@ -134,9 +142,11 @@ class NewsPageController extends Controller
 
         $tags = Tag::all()->pluck('name', 'id');
 
-        $newsPage->load('user', 'organization', 'tags', 'created_by');
+        $categories = Category::all()->pluck('name', 'id');
 
-        return view('admin.newsPages.edit', compact('users', 'organizations', 'tags', 'newsPage'));
+        $newsPage->load('user', 'organization', 'tags', 'created_by', 'category');
+
+        return view('admin.newsPages.edit', compact('users', 'organizations', 'tags', 'newsPage', 'categories'));
     }
 
     public function update(UpdateNewsPageRequest $request, NewsPage $newsPage)
@@ -164,7 +174,7 @@ class NewsPageController extends Controller
     {
         abort_if(Gate::denies('news_page_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $newsPage->load('user', 'organization', 'tags', 'created_by');
+        $newsPage->load('user', 'organization', 'tags', 'created_by', 'category');
 
         return view('admin.newsPages.show', compact('newsPage'));
     }

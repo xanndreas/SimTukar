@@ -277,6 +277,8 @@ return [
             'user_helper'         => ' ',
             'organization'        => 'Organization',
             'organization_helper' => ' ',
+            'category'            => 'Category',
+            'category_helper'     => ' ',
             'tag'                 => 'Tag',
             'tag_helper'          => ' ',
             'created_at'          => 'Created at',

@@ -40,6 +40,9 @@
                         {{ trans('cruds.newsPage.fields.organization') }}
                     </th>
                     <th>
+                        {{ trans('cruds.newsPage.fields.category') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.newsPage.fields.tag') }}
                     </th>
                     <th>
@@ -72,6 +75,14 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($organizations as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($categories as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
@@ -145,6 +156,7 @@
 { data: 'views', name: 'views' },
 { data: 'user_name', name: 'user.name' },
 { data: 'organization_name', name: 'organization.name' },
+{ data: 'category_name', name: 'category.name' },
 { data: 'tag', name: 'tags.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

@@ -77,6 +77,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.newsPage.fields.category') }}
+                        </th>
+                        <td>
+                            {{ $newsPage->category->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.newsPage.fields.tag') }}
                         </th>
                         <td>

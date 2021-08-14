@@ -42,6 +42,7 @@ class NewsPage extends Model implements HasMedia
         'updated_at',
         'deleted_at',
         'created_by_id',
+        'category_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -70,6 +71,11 @@ class NewsPage extends Model implements HasMedia
     public function organization()
     {
         return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function tags()

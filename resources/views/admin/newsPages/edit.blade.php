@@ -80,6 +80,20 @@
                 <span class="help-block">{{ trans('cruds.newsPage.fields.organization_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="category_id">{{ trans('cruds.newsPage.fields.category') }}</label>
+                <select class="form-control select2 {{ $errors->has('categories') ? 'is-invalid' : '' }}" name="category_id" id="category_id">
+                    @foreach($categories as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('category_id') ? old('category_id') : $newsPage->category->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('categories'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('categories') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.newsPage.fields.category_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="tags">{{ trans('cruds.newsPage.fields.tag') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
