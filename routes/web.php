@@ -10,7 +10,11 @@ Route::get('/home', function () {
 });
 
 Route::get('users/home', 'User\HomeController@index');
+Route::get('users/layanan', 'User\HomeController@layanan');
 Route::get('users/umkm', 'User\HomeController@umkm');
+Route::get('users/umkm-detail/{id}', 'User\HomeController@umkm_detail');
+Route::get('users/tag-detail/{id}', 'User\HomeController@tag_detail');
+Route::get('users/tags/{id}', 'User\HomeController@tags');
 Route::get('users/organization/{id}', 'User\HomeController@organization');
 Route::get('users/show/{id}', 'User\HomeController@show');
 Route::get('users/profile/{id}', 'User\HomeController@profile');

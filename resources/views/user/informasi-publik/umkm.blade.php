@@ -15,28 +15,42 @@
 
                 <div class="col-lg-12">
                     @foreach($umkm as $item)
-                        <div class="post post-single">
-                            <div class="post-header">
-                                <h1 class="title mt-0 mb-3"> {{$item->name}}</h1>
-                                <ul class="meta list-inline mb-0">
-                                    @foreach($item->photos as $key => $media)
-                                        <li class="list-inline-item"><a href="#"><img src="{{ $media->getUrl('thumb') }}" class="author" alt="author"/>{{$item->title}}</a></li>
-                                    @endforeach
-                                    <li class="list-inline-item">{{$item->created_at}}</li>
-                                </ul>
-                            </div>
-                            <!-- post content -->
-                            <div class="post-content clearfix">
-                                {!!$item->description!!}
+                        <div class="post post-classic rounded bordered">
+                            <div class="thumb top-rounded">
+                                <a href="blog-single.html">
+                                    <div class="inner">
+                                        <img src="images/posts/post-lg-2.jpg" alt="post-title" />
+                                    </div>
+                                </a>
                             </div>
                             <div class="details">
-                                <h4 class="name"><a href="#">Contact</a></h4>
-                                <p>{{$item->contact_detail->description}}</p>
-                            </div>
-                            <!-- post bottom section -->
-                        </div>
-                        <div class="spacer" data-height="50"></div>
+                                <ul class="meta list-inline mb-0">
+                                    <li class="list-inline-item"><a href="#"><img src="images/other/author-sm.png" class="author" alt="author"/>Katen Doe</a></li>
+                                    <li class="list-inline-item">{{date('Y-m-d',strtotime($item->updated_at))}}</li>
+                                    <li class="list-inline-item"><i class="icon-bubble"></i> (0)</li>
+                                </ul>
+                                <h5 class="post-title mb-3 mt-3"><a href="blog-single.html">{{$item->name}}</a></h5>
+                                <?php
+                                $string = strip_tags($item->description);
+                                if (strlen($string) > 200) {
 
+                                    // truncate string
+                                    $stringCut = substr($string, 0, 200);
+                                    $endPoint = strrpos($stringCut, ' ');
+
+                                    //if the string doesn't contain any space then it will cut without word basis.
+                                    $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                                }
+                                ?>
+                                {!!$string!!}...
+                            </div>
+                            <div class="post-bottom clearfix d-flex align-items-center">
+
+                                <div class="float-end d-none d-md-block">
+                                    <a href="{{url('/users/umkm-detail')}}" class="more-link">Show<i class="icon-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                     <div class="spacer" data-height="50"></div>
                 </div>

@@ -81,10 +81,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="category.html">Layanan Publik</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=""{{url('users/umkm')}}"">UMKM</a>
+                            <a class="nav-link" href="{{url('users/umkm')}}">UMKM</a>
                         </li>
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="">Organisasi</a>
@@ -95,7 +92,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
+                            <a class="nav-link" href="{{url('users/layanan')}}">Layanan Publik</a>
                         </li>
                     </ul>
                 </div>
@@ -184,31 +181,46 @@
     </div>
 
     <!-- menu -->
-    <nav>
-        <ul class="vertical-menu">
-            <li class="active"><a href="category.html">Beranda</a></li>
-            <li>
-                <a href="index.html">Profil</a>
-                <ul class="submenu">
-                    <li><a href="index.html">Sejarah Kelurahan</a></li>
-                    <li><a href="personal.html">Visi Misi</a></li>
-                    <li><a href="personal-alt.html">Struktur Organisasi</a></li>
-                    <li><a href="minimal.html">Monografi</a></li>
-                    <li><a href="classic.html">Prestasi</a></li>
-                    <li><a href="classic.html">Sarana Pendidikan</a></li>
-                </ul>
-            </li>
-            <li><a href="category.html">Layanan Publik</a></li>
-            <li>
-                <a href="#">Informasi Publik</a>
-                <ul class="submenu">
-                    <li><a href="category.html">UMKM</a></li>
-                    <li><a href="blog-single.html">Organisasi</a></li>
-                </ul>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+    <!-- instagram feed -->
+    <div class="instagram">
+        <div class="container-xl">
+            <!-- button -->
+            <a href="#" class="btn btn-default btn-instagram">@Katen on Instagram</a>
+            <!-- images -->
+            <div class="instagram-feed d-flex flex-wrap">
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="images/insta/insta-1.jpg" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="images/insta/insta-2.jpg" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="images/insta/insta-3.jpg" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="images/insta/insta-4.jpg" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="images/insta/insta-5.jpg" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="images/insta/insta-6.jpg" alt="insta-title" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- social icons -->
     <ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">

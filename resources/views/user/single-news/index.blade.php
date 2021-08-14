@@ -122,23 +122,48 @@
             </div>
 
             <div class="col-lg-4">
-
                 <!-- sidebar -->
                 <div class="sidebar">
-                    <!-- widget tags -->
+                    <!-- widget popular posts -->
                     <div class="widget rounded">
                         <div class="widget-header text-center">
-                            <h3 class="widget-title">Explore Tags</h3>
+                            <h3 class="widget-title">Popular Posts</h3>
                             <img src="images/wave.svg" class="wave" alt="wave" />
                         </div>
                         <div class="widget-content">
-                            <ul class="list">
-                                @foreach($tags as $key => $tag)
-                                <li><a href="#">{{$tag->name}}</a></li>
-                                @endforeach
-                            </ul>
+                            <!-- post -->
+                            @foreach($popular as $item)
+                                <div class="post post-list-sm circle">
+                                    <div class="thumb circle">
+                                        <span class="number">{{$item->views}}</span>
+                                        <a href="{{url('/users/show',$item->id)}}">
+                                            <div class="inner">
+                                                <img src="images/posts/tabs-1.jpg" alt="post-title" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="details clearfix">
+                                        <h6 class="post-title my-0"><a href="{{url('/users/show',$item->id)}}">{{$item->title}}</a></h6>
+                                        <ul class="meta list-inline mt-1 mb-0">
+                                            <li class="list-inline-item">{{date('Y-m-d',strtotime($item->updated_at))}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
+                    </div>
 
+                    <!-- widget tags -->
+                    <div class="widget rounded">
+                        <div class="widget-header text-center">
+                            <h3 class="widget-title">Tags</h3>
+                            <img src="images/wave.svg" class="wave" alt="wave" />
+                        </div>
+                        <div class="widget-content">
+                            @foreach($tags as $key => $tag)
+                                <a href="{{url('/users/tags',$tag->id)}}" class="tag">#{{$tag->name}}</a>
+                            @endforeach
+                        </div>
                     </div>
 
                 </div>
