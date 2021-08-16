@@ -12,7 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .copy('resources/user', 'public/user')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    .css('resources/css/landing/all.min.css', 'public/css/landing/')
+    .css('resources/css/landing/bootstrap.min.css', 'public/css/landing/')
+    .css('resources/css/landing/simple-line-icons.css', 'public/css/landing/')
+    .css('resources/css/landing/slick.css', 'public/css/landing/')
+    .sass('resources/css/landing/style.scss', 'public/css/landing/')
+    .postCss('resources/css/app.css', 'public/css')
+    .copy('resources/js/landing', 'public/js/landing')
+    .copy('resources/fonts', 'public/fonts')
+    .copy('resources/images', 'public/images');

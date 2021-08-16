@@ -1,4 +1,16 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/landing/style.css": "/css/landing/style.css",
+    "/css/landing/slick.css": "/css/landing/slick.css",
+    "/css/landing/simple-line-icons.css": "/css/landing/simple-line-icons.css",
+    "/css/landing/bootstrap.min.css": "/css/landing/bootstrap.min.css",
+    "/css/landing/all.min.css": "/css/landing/all.min.css",
+    "/css/app.css": "/css/app.css",
+    "/js/landing/bootstrap.min.js": "/js/landing/bootstrap.min.js",
+    "/js/landing/bootstrap.min.js.map": "/js/landing/bootstrap.min.js.map",
+    "/js/landing/custom.js": "/js/landing/custom.js",
+    "/js/landing/jquery.min.js": "/js/landing/jquery.min.js",
+    "/js/landing/jquery.sticky-sidebar.min.js": "/js/landing/jquery.sticky-sidebar.min.js",
+    "/js/landing/popper.min.js": "/js/landing/popper.min.js",
+    "/js/landing/slick.min.js": "/js/landing/slick.min.js"
 }

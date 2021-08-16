@@ -12,8 +12,4 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function getProfileTypes(){
-        $profileType = ProfileType::all();
-        return $profileType;
-    }
 }

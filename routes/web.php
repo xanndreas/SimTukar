@@ -1,25 +1,20 @@
 <?php
 
-Route::redirect('/', '/login');
-Route::get('/home', function () {
-    if (session('status')) {
-        return redirect()->route('admin.home')->with('status', session('status'));
-    }
+Route::redirect('/', '/home');
 
-    return redirect()->route('admin.home');
+Route::group(['as' => 'landing.', 'namespace' => 'Landing'], function () {
+    Route::resource('home', 'HomeController');
+    Route::resource('services', 'ServicesController');
+    Route::resource('umkm', 'UmkmController');
+    Route::resource('contact', 'ContactController');
+    Route::resource('tags', 'TagsController');
+    Route::resource('organization', 'OrganizationController');
+    Route::resource('news', 'NewsController');
+    Route::resource('profile', 'ProfileController');
 });
 
-Route::get('users/home', 'User\HomeController@index');
-Route::get('users/layanan', 'User\HomeController@layanan');
-Route::get('users/umkm', 'User\HomeController@umkm');
-Route::get('users/umkm-detail/{id}', 'User\HomeController@umkm_detail');
-Route::get('users/tag-detail/{id}', 'User\HomeController@tag_detail');
-Route::get('users/tags/{id}', 'User\HomeController@tags');
-Route::get('users/organization/{id}', 'User\HomeController@organization');
-Route::get('users/show/{id}', 'User\HomeController@show');
-Route::get('users/profile/{id}', 'User\HomeController@profile');
-
 Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');
+
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
