@@ -10,12 +10,12 @@ $organization = \App\Models\Organization::all();
 $organizationMenu = [];
 
 // cast the thing to some arr :)
-// profile
+// about
 if ($about !== null){
     foreach ($about as $index => $item) {
         $aboutMenu[$item->name] = [
-            "route" => strtolower('landing.profile.show'),
-            "slug" => strtolower('landing.profile.show'),
+            "route" => strtolower('landing.about.show'),
+            "slug" => strtolower('landing.about.show'),
             "params" => strtolower($item->name)
         ];
     }

@@ -20,11 +20,11 @@ class HomeController extends Controller
     public function index()
     {
         $corousel = $this->getNewestNews(3);
+        $popular = $this->getPopularNews(4);
+        $category = $this->getCategoriesCount();
         $news = NewsPage::with('user', 'organization', 'tags')->orderBy('id','desc')->get();
-        $popular = NewsPage::with('user', 'organization', 'tags')->orderByDesc('views')->limit(6)->get();
         $tags = Tag::all();
-        $organization = Organization::all();
-        return view('landing.home.index',compact('news','popular','organization','tags', 'corousel'));
+        return view('landing.home.index',compact('news','popular','tags', 'corousel', 'category'));
     }
 
 }

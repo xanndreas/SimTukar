@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\NewsPage;
-use App\Models\ProfileType;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -21,7 +20,23 @@ class Controller extends BaseController
         return NewsPage::orderBy('created_at')->take($amount)->get()->load('user', 'organization', 'category', 'tags');
     }
 
-    public function getPaginatorNews($perPage){
-        return NewsPage::paginate($perPage);
+    public function getCategoriesCount(){
+        $results = [];
+        $categories = NewsPage::with('category')->get();
+
+        foreach ($categories as $index => $value){
+            if(isset($results[$value->category->name])){
+                $results[$value->category->name]['count'] += 1;
+            } else {
+                $results[$value->category->name] = [
+                    'name' => $value->category->name,
+                    'slug' => $value->category->slug,
+                    'count' => 1,
+                ];
+            }
+
+        }
+
+        return $results;
     }
 }
