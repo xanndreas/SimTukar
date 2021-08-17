@@ -28,6 +28,9 @@
                         {{ trans('cruds.newsPage.fields.title') }}
                     </th>
                     <th>
+                        {{ trans('cruds.newsPage.fields.slug') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.newsPage.fields.photos') }}
                     </th>
                     <th>
@@ -70,6 +73,9 @@
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <select class="search">
@@ -152,6 +158,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'title', name: 'title' },
+{ data: 'slug', name: 'slug' },
 { data: 'photos', name: 'photos', sortable: false, searchable: false },
 { data: 'views', name: 'views' },
 { data: 'user_name', name: 'user.name' },

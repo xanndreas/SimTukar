@@ -10,19 +10,26 @@
         <form method="POST" action="{{ route("admin.comments.update", [$comment->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
+
             <div class="form-group">
-                <label for="user_id">{{ trans('cruds.comment.fields.user') }}</label>
-                <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}" name="user_id" id="user_id">
-                    @foreach($users as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $comment->user->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('user'))
+                <label for="name">{{ trans('cruds.comment.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $comment->name) }}">
+                @if($errors->has('name'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('user') }}
+                        {{ $errors->first('name') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.comment.fields.user_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.comment.fields.name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="email">{{ trans('cruds.comment.fields.email') }}</label>
+                <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="text" name="email" id="email" value="{{ old('email', $comment->email) }}">
+                @if($errors->has('email'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.comment.fields.email_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="content">{{ trans('cruds.comment.fields.content') }}</label>

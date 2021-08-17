@@ -11,6 +11,7 @@ class CreateNewsPagesTable extends Migration
         Schema::create('news_pages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->longText('content')->nullable();
             $table->string('views')->nullable();
             $table->timestamps();

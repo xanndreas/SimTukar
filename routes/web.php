@@ -10,7 +10,8 @@ Route::group(['as' => 'landing.', 'namespace' => 'Landing'], function () {
     Route::resource('tags', 'TagsController');
     Route::resource('organization', 'OrganizationController');
     Route::resource('news', 'NewsController');
-    Route::resource('profile', 'ProfileController');
+    Route::resource('about', 'AboutController');
+    Route::resource('category', 'CategoryController');
 });
 
 Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');

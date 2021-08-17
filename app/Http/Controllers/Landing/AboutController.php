@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 
-class ProfileController extends Controller {
+class AboutController extends Controller {
 
     public function index() {
 

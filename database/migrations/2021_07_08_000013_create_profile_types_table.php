@@ -11,6 +11,7 @@ class CreateProfileTypesTable extends Migration
         Schema::create('profile_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->string('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -25,7 +25,10 @@
                         {{ trans('cruds.comment.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.comment.fields.user') }}
+                        {{ trans('cruds.comment.fields.name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.comment.fields.email') }}
                     </th>
                     <th>
                         {{ trans('cruds.comment.fields.content') }}
@@ -50,12 +53,10 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($users as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -130,7 +131,8 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'user_name', name: 'user.name' },
+{ data: 'name', name: 'name' },
+{ data: 'email', name: 'email' },
 { data: 'content', name: 'content' },
 { data: 'date', name: 'date' },
 { data: 'report_count', name: 'report_count' },

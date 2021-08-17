@@ -28,6 +28,9 @@
                         {{ trans('cruds.umkm.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.umkm.fields.slug') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.umkm.fields.longitude') }}
                     </th>
                     <th>
@@ -45,6 +48,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -125,6 +131,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'slug', name: 'slug' },
 { data: 'longitude', name: 'longitude' },
 { data: 'latitude', name: 'latitude' },
 { data: 'contact_detail_description', name: 'contact_detail.description' },

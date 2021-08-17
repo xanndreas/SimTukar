@@ -7,6 +7,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Tag extends Model
 {
@@ -24,10 +25,47 @@ class Tag extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (Tag $tag) {
+            if (!$tag->slug) {
+                $slug = Str::slug($tag->name, '-');
+                $usedSlug = Tag::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Str::slug($tag->name, '-').'-'.$slugger;
+                    $usedSlug = Tag::where('slug', $slug)->first();
+                }
+
+                $tag->slug = $slug;
+                $tag->save();
+            }
+        });
+
+        self::updated(function (Tag $tag) {
+            if (!$tag->slug) {
+                $slug = Str::slug($tag->name, '-');
+                $usedSlug = Tag::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Str::slug($tag->name, '-').'-'.$slugger;
+                    $usedSlug = Tag::where('slug', $slug)->first();
+                }
+
+                $tag->slug = $slug;
+                $tag->save();
+            }
+        });
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

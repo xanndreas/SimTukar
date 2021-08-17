@@ -28,11 +28,17 @@
                         {{ trans('cruds.tag.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.tag.fields.slug') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -97,6 +103,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'slug', name: 'slug' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

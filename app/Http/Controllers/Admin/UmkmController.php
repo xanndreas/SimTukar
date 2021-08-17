@@ -51,6 +51,9 @@ class UmkmController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
+            $table->editColumn('slug', function ($row) {
+                return $row->slug ? $row->slug : '';
+            });
             $table->editColumn('longitude', function ($row) {
                 return $row->longitude ? $row->longitude : '';
             });

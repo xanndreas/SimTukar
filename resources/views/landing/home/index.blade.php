@@ -4,22 +4,25 @@
         <div class="container-xl">
             <div class="post-carousel-lg">
                 <!-- post -->
-                @foreach($news as $item)
+
+                @foreach($corousel as $item)
                 <div class="post featured-post-xl">
                     <div class="details clearfix">
-                        @foreach($item->tags as $key => $tag)
-                        <a href="category.html" class="category-badge lg">{{$tag->name}}</a>
-                        @endforeach
-                        <h4 class="post-title"><a href="blog-single.html">{{$item->title}}</a></h4>
+                        @if(isset($item->category->name))
+                            <a href="{{ route('landing.category.show', $item->category->name) }}" class="category-badge lg">{{$item->category->name}}</a>
+                        @endif
+                        <h4 class="post-title"><a href="blog-single.html">{{substr($item->title, 0, 40) . '...'}}</a></h4>
                         <ul class="meta list-inline mb-0">
-                            <li class="list-inline-item">{{date('Y-m-d',strtotime($item->updated_at))}}</li>
+                            <li class="list-inline-item">{{date('d M Y',strtotime($item->updated_at))}}</li>
                         </ul>
                     </div>
+                    @if(isset($item->title))
                     <a href="blog-single.html">
                         <div class="thumb rounded">
                             <div class="inner data-bg-image" data-bg-image="{{asset('images/landing/posts/featured-xl-1.jpg')}}"></div>
                         </div>
                     </a>
+                    @endif
                 </div>
                 @endforeach
             </div>

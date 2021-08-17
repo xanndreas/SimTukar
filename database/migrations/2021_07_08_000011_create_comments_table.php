@@ -10,6 +10,8 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
             $table->string('content')->nullable();
             $table->datetime('date')->nullable();
             $table->string('report_count')->nullable();

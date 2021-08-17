@@ -2,8 +2,8 @@
 
 // dynamically load profile type from models
 // profile model
-$profile = \App\Models\ProfileType::all();
-$profileMenu = [];
+$about = \App\Models\ProfileType::all();
+$aboutMenu = [];
 
 // organization model
 $organization = \App\Models\Organization::all();
@@ -11,9 +11,9 @@ $organizationMenu = [];
 
 // cast the thing to some arr :)
 // profile
-if ($profile !== null){
-    foreach ($profile as $index => $item) {
-        $profileMenu[$item->name] = [
+if ($about !== null){
+    foreach ($about as $index => $item) {
+        $aboutMenu[$item->name] = [
             "route" => strtolower('landing.profile.show'),
             "slug" => strtolower('landing.profile.show'),
             "params" => strtolower($item->name)
@@ -38,10 +38,10 @@ return [
         "route" => "landing.home.index",
         "slug" => "landing.home.index"
     ],
-    "Profile" => [
-        "route" => "landing.profile.index",
-        "slug" => "landing.profile.index",
-        "submenu" => isset($profileMenu) ? $profileMenu : []
+    "About" => [
+        "route" => "landing.about.index",
+        "slug" => "landing.about.index",
+        "submenu" => isset($aboutMenu) ? $aboutMenu : []
     ],
     "UMKM" => [
         "route" => "landing.umkm.index",

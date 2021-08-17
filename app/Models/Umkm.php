@@ -7,6 +7,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -32,6 +33,7 @@ class Umkm extends Model implements HasMedia
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'longitude',
         'latitude',
@@ -40,6 +42,43 @@ class Umkm extends Model implements HasMedia
         'updated_at',
         'deleted_at',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (Umkm $umkm) {
+            if (!$umkm->slug) {
+                $slug = Str::slug($umkm->name, '-');
+                $usedSlug = Umkm::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Str::slug($umkm->name, '-').'-'.$slugger;
+                    $usedSlug = Umkm::where('slug', $slug)->first();
+                }
+
+                $umkm->slug = $slug;
+                $umkm->save();
+            }
+        });
+
+
+        self::updated(function (Umkm $umkm) {
+            if (!$umkm->slug) {
+                $slug = Str::slug($umkm->name, '-');
+                $usedSlug = Umkm::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Str::slug($umkm->name, '-').'-'.$slugger;
+                    $usedSlug = Umkm::where('slug', $slug)->first();
+                }
+
+                $umkm->slug = $slug;
+                $umkm->save();
+            }
+        });
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {

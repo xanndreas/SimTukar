@@ -27,7 +27,7 @@ class NewsPageController extends Controller
         abort_if(Gate::denies('news_page_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = NewsPage::with(['user', 'organization', 'tags', 'category', 'created_by'])->select(sprintf('%s.*', (new NewsPage())->table));
+            $query = NewsPage::with(['user', 'organization', 'tags', 'category'])->select(sprintf('%s.*', (new NewsPage())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -53,6 +53,9 @@ class NewsPageController extends Controller
             });
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : '';
+            });
+            $table->editColumn('slug', function ($row) {
+                return $row->slug ? $row->slug : '';
             });
             $table->editColumn('photos', function ($row) {
                 if (!$row->photos) {
@@ -144,7 +147,7 @@ class NewsPageController extends Controller
 
         $categories = Category::all()->pluck('name', 'id');
 
-        $newsPage->load('user', 'organization', 'tags', 'created_by', 'category');
+        $newsPage->load('user', 'organization', 'tags', 'category');
 
         return view('admin.newsPages.edit', compact('users', 'organizations', 'tags', 'newsPage', 'categories'));
     }
@@ -174,7 +177,7 @@ class NewsPageController extends Controller
     {
         abort_if(Gate::denies('news_page_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $newsPage->load('user', 'organization', 'tags', 'created_by', 'category');
+        $newsPage->load('user', 'organization', 'tags', 'category');
 
         return view('admin.newsPages.show', compact('newsPage'));
     }

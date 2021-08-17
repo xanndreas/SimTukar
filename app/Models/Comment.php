@@ -25,7 +25,8 @@ class Comment extends Model
     ];
 
     protected $fillable = [
-        'user_id',
+        'name',
+        'email',
         'content',
         'date',
         'report_count',
@@ -34,11 +35,6 @@ class Comment extends Model
         'updated_at',
         'deleted_at',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 
     public function getDateAttribute($value)
     {

@@ -21,7 +21,7 @@ class CommentController extends Controller
         abort_if(Gate::denies('comment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Comment::with(['user', 'berita'])->select(sprintf('%s.*', (new Comment())->table));
+            $query = Comment::with(['berita'])->select(sprintf('%s.*', (new Comment())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -45,8 +45,11 @@ class CommentController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->addColumn('user_name', function ($row) {
-                return $row->user ? $row->user->name : '';
+            $table->addColumn('name', function ($row) {
+                return $row->user ? $row->name : '';
+            });
+            $table->addColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
             });
 
             $table->editColumn('content', function ($row) {

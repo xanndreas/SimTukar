@@ -11,6 +11,7 @@ class CreateUmkmsTable extends Migration
         Schema::create('umkms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->string('slug')->nullable();
             $table->longText('description')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();

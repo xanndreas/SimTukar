@@ -8,6 +8,7 @@ use App\Traits\MultiTenantModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -34,6 +35,7 @@ class NewsPage extends Model implements HasMedia
 
     protected $fillable = [
         'title',
+        'slug',
         'content',
         'views',
         'user_id',
@@ -41,9 +43,44 @@ class NewsPage extends Model implements HasMedia
         'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
         'category_id',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (NewsPage $newsPage) {
+            if (!$newsPage->slug) {
+                $slug = Str::slug($newsPage->title, '-');
+                $usedSlug = NewsPage::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Str::slug($newsPage->title, '-').'-'.$slugger;
+                    $usedSlug = NewsPage::where('slug', $slug)->first();
+                }
+
+                $newsPage->slug = $slug;
+                $newsPage->save();
+            }
+        });
+
+        self::updated(function (NewsPage $newsPage) {
+            if (!$newsPage->slug) {
+                $slug = Str::slug($newsPage->title, '-');
+                $usedSlug = NewsPage::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Str::slug($newsPage->title, '-').'-'.$slugger;
+                    $usedSlug = NewsPage::where('slug', $slug)->first();
+                }
+
+                $newsPage->slug = $slug;
+                $newsPage->save();
+            }
+        });
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -81,11 +118,6 @@ class NewsPage extends Model implements HasMedia
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
-    }
-
-    public function created_by()
-    {
-        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

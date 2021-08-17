@@ -7,6 +7,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -32,11 +33,48 @@ class Organization extends Model implements HasMedia
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (Organization $organization) {
+            if (!$organization->slug) {
+                $slug = Str::slug($organization->name, '-');
+                $usedSlug = Organization::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Organization::slug($organization->name, '-').'-'.$slugger;
+                    $usedSlug = User::where('slug', $slug)->first();
+                }
+
+                $organization->slug = $slug;
+                $organization->save();
+            }
+        });
+
+        self::updated(function (Organization $organization) {
+            if (!$organization->slug) {
+                $slug = Str::slug($organization->name, '-');
+                $usedSlug = Organization::where('slug', $slug)->first();
+                $slugger = 1;
+
+                while ($usedSlug) {
+                    $slug = Organization::slug($organization->name, '-').'-'.$slugger;
+                    $usedSlug = User::where('slug', $slug)->first();
+                }
+
+                $organization->slug = $slug;
+                $organization->save();
+            }
+        });
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {
