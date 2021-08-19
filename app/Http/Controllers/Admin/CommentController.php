@@ -8,7 +8,6 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\NewsPage;
-use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +45,7 @@ class CommentController extends Controller
                 return $row->id ? $row->id : '';
             });
             $table->addColumn('name', function ($row) {
-                return $row->user ? $row->name : '';
+                return $row->name ? $row->name : '';
             });
             $table->addColumn('email', function ($row) {
                 return $row->email ? $row->email : '';
@@ -63,26 +62,23 @@ class CommentController extends Controller
                 return $row->berita ? $row->berita->title : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'user', 'berita']);
+            $table->rawColumns(['actions', 'placeholder', 'berita']);
 
             return $table->make(true);
         }
 
-        $users      = User::get();
         $news_pages = NewsPage::get();
 
-        return view('admin.comments.index', compact('users', 'news_pages'));
+        return view('admin.comments.index', compact('news_pages'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('comment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $beritas = NewsPage::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.comments.create', compact('users', 'beritas'));
+        return view('admin.comments.create', compact('beritas'));
     }
 
     public function store(StoreCommentRequest $request)
@@ -96,13 +92,11 @@ class CommentController extends Controller
     {
         abort_if(Gate::denies('comment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $beritas = NewsPage::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $comment->load('user', 'berita');
+        $comment->load('berita');
 
-        return view('admin.comments.edit', compact('users', 'beritas', 'comment'));
+        return view('admin.comments.edit', compact( 'beritas', 'comment'));
     }
 
     public function update(UpdateCommentRequest $request, Comment $comment)
@@ -116,7 +110,7 @@ class CommentController extends Controller
     {
         abort_if(Gate::denies('comment_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $comment->load('user', 'berita');
+        $comment->load('berita');
 
         return view('admin.comments.show', compact('comment'));
     }

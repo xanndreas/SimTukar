@@ -5,29 +5,37 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\NewsPage;
-use App\Models\Organization;
 use App\Models\Tag;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller {
 
     public function index() {
-        $news = NewsPage::with('user', 'organization', 'tags', 'created_by')->orderBy('id','desc')->get();
-        $popular = NewsPage::with('created_by')->orderByDesc('views')->limit(6)->get();
-        $tags = Tag::all();
-        $profileType = $this->getProfileTypes();
-        $organization = Organization::all();
-        return view('landing.home.index',compact('news','popular','profileType','organization','tags'));
+
+        return view('landing.news.index',compact('news','popular','profileType','organization','tags'));
 
     }
 
     public function show($news){
-        $newsPage = NewsPage::with('user','organization','tags','created_by')->where('id',$i)->get();
-        $popular = NewsPage::with('created_by')->orderByDesc('views')->limit(6)->get();
+        $slug = Str::slug($news, '-');
+        $news = NewsPage::with('tags', 'category', 'organization', 'user')->where('slug', $slug)->first();
+        abort_if(!$news,404);
+
+        $comments = $this->loadComments($news->id);
+        $popular = $this->getPopularNews(4);
+        $category = $this->getCategoriesCount();
         $tags = Tag::all();
-        $profileType = $this->getProfileTypes();
-        $organization = Organization::all();
-        $comments = Comment::with('news_page','user')->where('berita_id',$i)->get();
-        return view('landing.single-news.index', compact('organization','popular','newsPage','tags','comments','profileType'));
+        $breadcrumb = [
+            "News" => route('landing.news.index'),
+            isset($news->category->name) ? $news->category->name : "Category" => isset($news->category->name) ? route('landing.category.show', $news->category->name) : "javascript:void(0);",
+            "Current News" => route('landing.news.show', $news->slug)
+        ];
+
+        return view('landing.news.show', compact('news', 'breadcrumb', 'popular', 'category', 'tags', 'comments'));
+    }
+
+    private function loadComments($id){
+        return Comment::where('berita_id', $id)->orderByDesc('created_at')->get();
     }
 
     public function create(){
