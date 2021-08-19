@@ -19,12 +19,18 @@ class HomeController extends Controller
 
     public function index()
     {
-        $corousel = $this->getNewestNews(3);
+        $top1news = $this->getPopularNews(1)->first();
+        $recent = $this->getNewestNews(4);
+        $weeks = $this->getPopularWeeksNews(5);
+        $topnews = $this->getPopularNews(6);
+        $news = NewsPage::with('user', 'organization', 'category', 'tags')->get();
+
+        // for sidebar
         $popular = $this->getPopularNews(4);
         $category = $this->getCategoriesCount();
-        $news = NewsPage::with('user', 'organization', 'tags')->orderBy('id','desc')->get();
         $tags = Tag::all();
-        return view('landing.home.index',compact('news','popular','tags', 'corousel', 'category'));
+
+        return view('landing.home.index',compact('popular','tags', 'category', 'top1news', 'topnews', 'recent', 'weeks', 'news'));
     }
 
 }

@@ -9,6 +9,10 @@ $aboutMenu = [];
 $organization = \App\Models\Organization::all();
 $organizationMenu = [];
 
+// umkm model
+$umkm = \App\Models\Umkm::all();
+$umkmMenu = [];
+
 // cast the thing to some arr :)
 // about
 if ($about !== null){
@@ -16,7 +20,7 @@ if ($about !== null){
         $aboutMenu[$item->name] = [
             "route" => strtolower('landing.about.show'),
             "slug" => strtolower('landing.about.show'),
-            "params" => strtolower($item->name)
+            "params" => strtolower($item->slug)
         ];
     }
 }
@@ -27,36 +31,48 @@ if ($organization !== null){
         $organizationMenu[$item->name] = [
             "route" => strtolower('landing.organization.show'),
             "slug" => strtolower('landing.organization.show'),
-            "params" => strtolower($item->name)
+            "params" => strtolower($item->slug)
+        ];
+    }
+}
+
+// organization
+if ($umkm !== null){
+    foreach ($umkm as $index => $item) {
+        $umkmMenu[$item->name] = [
+            "route" => strtolower('landing.umkm.show'),
+            "slug" => strtolower('landing.umkm.show'),
+            "params" => strtolower($item->slug)
         ];
     }
 }
 
 
 return [
-    "Home" => [
+    "Beranda" => [
         "route" => "landing.home.index",
         "slug" => "landing.home.index"
     ],
-    "About" => [
-        "route" => "landing.about.index",
-        "slug" => "landing.about.index",
+    "Tentang" => [
+        "route" => "landing.about.show",
+        "slug" => "landing.about.show",
         "submenu" => isset($aboutMenu) ? $aboutMenu : []
     ],
     "UMKM" => [
-        "route" => "landing.umkm.index",
-        "slug" => "landing.umkm.index",
+        "route" => "landing.umkm.show",
+        "slug" => "landing.umkm.show",
+        "submenu" => isset($umkmMenu) ? $umkmMenu : []
     ],
-    "Organization" => [
-        "route" => "landing.organization.index",
-        "slug" => "landing.organization.index",
+    "Organisasi" => [
+        "route" => "landing.organization.show",
+        "slug" => "landing.organization.show",
         "submenu" => isset($organizationMenu) ? $organizationMenu : []
     ],
-    "News" => [
+    "Berita" => [
         "route" => "landing.news.index",
         "slug" => "landing.news.index",
     ],
-    "Contact" => [
+    "Kontak" => [
         "route" => "landing.contact.index",
         "slug" => "landing.contact.index",
     ],

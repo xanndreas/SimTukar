@@ -24,7 +24,7 @@ class NewsController extends Controller {
     public function show($news){
         $slug = Str::slug($news, '-');
         $news = NewsPage::with('tags', 'category', 'organization', 'user')->where('slug', $slug)->first();
-//        abort_if(!$news,404);
+        abort_if(!$news,404);
 
         $comments = $this->loadComments($news->id);
         $popular = $this->getPopularNews(4);
