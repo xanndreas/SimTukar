@@ -62,13 +62,12 @@ class NewsController extends Controller {
     {
         $validator = Validator::make($request->all(),[
             recaptchaFieldName() => recaptchaRuleName()]);
-        if ($validator->failed()){
-            Alert::error('Failed', 'Check captcha');
+        if ($validator->fails()){
+            return redirect()->back()->with('failed','Captcha harus divalidasi!');
         } else {
-            $comment = Comment::create($request->all());
+            Comment::create($request->all());
+            return redirect()->back()->with('success','Terimakasih atas komentar Anda!');
         }
-        return redirect()->route('landing.news.show');
-
     }
 
     public function edit(Comment $comment)
@@ -80,11 +79,13 @@ class NewsController extends Controller {
 
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        $update = $comment->update($request->all());
-        if ($update){
-            return redirect()->route('landing.news.show');
-        }else {
-            return 0;
+        $validator = Validator::make($request->all(),[
+            recaptchaFieldName() => recaptchaRuleName()]);
+        if ($validator->fails()){
+            return redirect()->back()->with('failed','Captcha harus divalidasi!');
+        } else {
+            $comment->update($request->all());
+            return redirect()->back()->with('success','Report akan segera diproses!');
         }
 
     }

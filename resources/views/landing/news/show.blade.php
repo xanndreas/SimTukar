@@ -66,6 +66,18 @@
                         <h3 class="section-title">Comments ({{$comments->count()}})</h3>
                         <img src="{{ asset('images/landing/wave.svg') }}" class="wave" alt="wave"/>
                     </div>
+                    @csrf
+                    <div class="messages"></div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('failed'))
+                        <div class="alert alert-danger">
+                            {{ session('failed') }}
+                        </div>
+                    @endif
                     <div class="comments bordered padding-30 rounded">
                         <ul class="comments">
                             @foreach($comments as $value)
@@ -86,7 +98,7 @@
                         </ul>
                     </div>
                     <div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
-                         aria-labelledby="reportModalLabel" aria-hidden="true">
+                         aria-labelledby="reportModal" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -97,7 +109,7 @@
                                     @method('PUT')
                                     @csrf
                                     <div class="modal-body">
-                                        <input type="hidden" name="id" id="id">
+                                        <input type="text" name="id" id="id">
                                         <input type="hidden" name="report_count" id="report_count">
                                         {!! htmlFormSnippet() !!}
                                     </div>
@@ -119,10 +131,20 @@
                         <img src="{{ asset('images/landing/wave.svg') }}" class="wave" alt="wave"/>
                     </div>
                     <div class="comment-form rounded bordered padding-30">
+                        @csrf
+                        <div class="messages"></div>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if (session('failed'))
+                            <div class="alert alert-danger">
+                                {{ session('failed') }}
+                            </div>
+                        @endif
                         <form id="comment-form" action="{{ route("landing.news.store") }}" class="comment-form"
                               method="post">
-                            @csrf
-                            <div class="messages"></div>
                             <div class="row">
                                 <div class="column col-md-12">
                                     <!-- Comment textarea -->
@@ -173,18 +195,20 @@
         $(document).ready(function () {
             $('#modal-report').on("click", function () {
                 var id = $(this).attr('data-id');
-                $.ajax({
-                    url: '',
-                    type: "GET",
-                    dataType: "JSON",
-                    success: function (data) {
-                        $('#id').val(data.id);
-                        $('#content').val(data.content);
-                        $('#report_count').val(data.report_count + 1)
-                    }
-                });
+                console.log(id)
+                {{--$.ajax({--}}
+                {{--    url: "{{ route("landing.news.edit") }}?id="+id,--}}
+                {{--    type: "GET",--}}
+                {{--    dataType: "JSON",--}}
+                {{--    success: function (data) {--}}
+                {{--        $('.id').val(data.id);--}}
+                {{--        $('.content').val(data.content);--}}
+                {{--        $('.report_count').val(data.report_count + 1)--}}
+                {{--    }--}}
+                {{--});--}}
             });
 
         });
     </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 @endsection
