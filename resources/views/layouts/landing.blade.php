@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="{{ asset('css/landing/slick.css')}}" type="text/css" media="all">
     <link rel="stylesheet" href="{{ asset('css/landing/simple-line-icons.css')}}" type="text/css" media="all">
     <link rel="stylesheet" href="{{ asset('css/landing/style.css')}}" type="text/css" media="all">
+
     @yield('styles')
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-
-
 </head>
 
 <body>
@@ -26,29 +24,9 @@
 
 <div class="site-wrapper">
     <div class="main-overlay"></div>
-    <header class="header-classic">
-        <div class="container-xl">
-            <div class="header-top">
-                <div class="row align-items-center">
 
-                    <div class="col-md-4 col-xs-12">
-                        <a class="navbar-brand" href="{{ route('landing.home.index') }}"><img src="{{asset('images/landing/logo.svg')}}" alt="logo" /></a>
-                    </div>
-
-                    <div class="col-md-8 d-none d-md-block">
-                        <ul class="social-icons list-unstyled list-inline mb-0 float-end">
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+    <header class="header-default">
         @include('partials/menuLanding')
-
     </header>
 
 @yield('content')
@@ -60,7 +38,7 @@
                 <div class="row d-flex align-items-center gy-4">
                     <!-- copyright text -->
                     <div class="col-md-4">
-                        <span class="copyright">© 2021 Katen. Template by ThemeGer.</span>
+                        <span class="copyright">© 2021 Kelurahan Tunjungsekar.</span>
                     </div>
 
                     <!-- social icons -->
@@ -104,7 +82,7 @@
     <button type="button" class="btn-close" aria-label="Close"></button>
 
     <div class="logo">
-        <img src="{{asset('images/landing/logo.svg')}}" alt="Logo" />
+        <img src="{{asset('images/landing/logo.png')}}" alt="Logo" />
     </div>
 
     <ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">
@@ -123,7 +101,6 @@
 <script src="{{asset('js/landing/jquery.sticky-sidebar.min.js')}}"></script>
 <script src="{{asset('js/landing/custom.js')}}"></script>
 @yield('scripts')
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </body>
 </html>

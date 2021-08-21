@@ -16,8 +16,19 @@ use Symfony\Component\HttpFoundation\Response;
 class NewsController extends Controller {
 
     public function index() {
+        $news = NewsPage::with('tags', 'category', 'organization', 'user')->get();
 
-        return view('landing.news.index',compact('news','popular','profileType','organization','tags'));
+        $popular = $this->getPopularNews(4);
+        $tags = Tag::all();
+        $category = $this->getCategoriesCount();
+
+        $breadcrumb = [
+            "Berita" => 'javascript:void(0);'
+        ];
+
+        $title = 'Berita';
+
+        return view('landing.news.index',compact('news','popular','tags','category', 'breadcrumb', 'title'));
 
     }
 

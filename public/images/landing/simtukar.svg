@@ -1,0 +1,13 @@
+<svg width="118" height="26.000000000000004" xmlns="http://www.w3.org/2000/svg" fill="none">
+ <defs>
+  <clipPath id="clip0">
+   <rect id="svg_1" fill="white" height="26" width="118"/>
+  </clipPath>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <circle id="svg_4" fill="#FE4F70" r="4" cy="21" cx="111"/>
+  <text xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" stroke-width="0" id="svg_5" y="10.69231" x="34.19231" fill="#000000"/>
+  <text xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" stroke-width="0" id="svg_6" y="23" x="5.73077" fill="#000000">SimTukar</text>
+ </g>
+</svg>

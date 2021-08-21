@@ -1,176 +1,118 @@
-@extends('layouts.user')
+@extends('layouts.landing')
 @section('content')
-<section class="main-content mt-3">
-    <div class="container-xl">
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">News</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{$newsPage[0]['title']}}</li>
-            </ol>
-        </nav>
-
-        <div class="row gy-4">
-
-            <div class="col-lg-8">
-                @foreach($newsPage as $item)
-                <div class="post post-single">
-                    <div class="post-header">
-                        <h1 class="title mt-0 mb-3"> {{$item->title}}</h1>
-                        <ul class="meta list-inline mb-0">
-                            @foreach($item->photos as $key => $media)
-                                <li class="list-inline-item"><a href="#"><img src="{{ $media->getUrl('thumb') }}" class="author" alt="author"/>{{$item->title}}</a></li>
-                            @endforeach
-                            <li class="list-inline-item"><a href="#">Trending</a></li>
-                            <li class="list-inline-item">{{$item->created_at}}</li>
-                        </ul>
-                    </div>
-                    <!-- featured image -->
-                    <div class="featured-image">
-                        @foreach($item->photos as $key => $media)
-                            <img src="{{ $media->getUrl('thumb') }}" alt="post-title" />
+    <section class="page-header">
+        <div class="container-xl">
+            <div class="text-center">
+                <h1 class="mt-0 mb-2">{{ $title }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        @foreach($breadcrumb as $index => $value)
+                            <li class="breadcrumb-item"><a href="{{ $value }}">{{ $index }}</a></li>
                         @endforeach
-                    </div>
-                    <!-- post content -->
-                    <div class="post-content clearfix">
-                        {!!$item->content!!}
-                    </div>
-                    <!-- post bottom section -->
-                    <div class="post-bottom">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-md-6 col-12 text-center text-md-start">
-                                @foreach($item->tags as $key => $tag)
-                                <a href="#" class="tag">{{$tag->name}}</a>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="spacer" data-height="50"></div>
-            @endforeach
-                <!-- section header -->
-                <div class="section-header">
-                    <h3 class="section-title">Comments</h3>
-                    <img src="images/wave.svg" class="wave" alt="wave" />
-                </div>
-                <!-- post comments -->
-                <div class="comments bordered padding-30 rounded">
-                    <ul class="comments">
-                        @foreach($comments as $comment)
-                        <li class="comment rounded">
-                            <div class="details">
-                                <h4 class="name"><a href="#">{{$comment->user->name}}</a></h4>
-                                <span class="date">{{$comment->created_at}}</span>
-                                <p>{{$comment->content}}</p>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <div class="spacer" data-height="50"></div>
-
-                <!-- section header -->
-                <div class="section-header">
-                    <h3 class="section-title">Leave Comment</h3>
-                    <img src="images/wave.svg" class="wave" alt="wave" />
-                </div>
-                <!-- comment form -->
-                <div class="comment-form rounded bordered padding-30">
-
-                    <form id="comment-form" class="comment-form" method="post">
-
-                        <div class="messages"></div>
-
-                        <div class="row">
-
-                            <div class="column col-md-12">
-                                <!-- Comment textarea -->
-                                <div class="form-group">
-                                    <textarea name="InputComment" id="InputComment" class="form-control" rows="4" placeholder="Your comment here..." required="required"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="column col-md-6">
-                                <!-- Email input -->
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="InputEmail" name="InputEmail" placeholder="Email address" required="required">
-                                </div>
-                            </div>
-
-                            <div class="column col-md-6">
-                                <!-- Name input -->
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="InputWeb" id="InputWeb" placeholder="Website" required="required">
-                                </div>
-                            </div>
-
-                            <div class="column col-md-12">
-                                <!-- Email input -->
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="InputName" name="InputName" placeholder="Your name" required="required">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default">Submit</button><!-- Submit Button -->
-
-                    </form>
-                </div>
+                    </ol>
+                </nav>
             </div>
+        </div>
+    </section>
 
-            <div class="col-lg-4">
-                <!-- sidebar -->
-                <div class="sidebar">
-                    <!-- widget popular posts -->
-                    <div class="widget rounded">
-                        <div class="widget-header text-center">
-                            <h3 class="widget-title">Popular Posts</h3>
-                            <img src="images/wave.svg" class="wave" alt="wave" />
-                        </div>
-                        <div class="widget-content">
+    <!-- section main content -->
+    <section class="main-content">
+        <div class="container-xl">
+            <div class="row gy-4">
+                <div class="col-lg-8">
+                    <div class="row gy-4">
+                        @foreach($news as $item)
+                        <div class="col-sm-6">
                             <!-- post -->
-                            @foreach($popular as $item)
-                                <div class="post post-list-sm circle">
-                                    <div class="thumb circle">
-                                        <span class="number">{{$item->views}}</span>
-                                        <a href="{{url('/users/show',$item->id)}}">
-                                            <div class="inner">
-                                                <img src="images/posts/tabs-1.jpg" alt="post-title" />
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="details clearfix">
-                                        <h6 class="post-title my-0"><a href="{{url('/users/show',$item->id)}}">{{$item->title}}</a></h6>
-                                        <ul class="meta list-inline mt-1 mb-0">
-                                            <li class="list-inline-item">{{date('Y-m-d',strtotime($item->updated_at))}}</li>
+                            <div class="post post-grid rounded bordered">
+                                <div class="thumb top-rounded">
+                                    <a href="{{ route('landing.category.show', $item->category->slug) }}" class="category-badge position-absolute">{{ $item->category->name }}</a>
+                                    <span class="post-format">
+                                        <i class="icon-picture"></i>
+                                    </span>
+                                    <a href="{{ route('landing.news.show', $item->slug) }}">
+                                        <div class="inner">
+                                            <img src="{{ isset($item->photos[0]) ? $item->photos[0]->getUrl() : asset('images/landing/posts/post-md-1.jpg') }}" alt="post-title" />
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="details">
+                                    <ul class="meta list-inline mb-0">
+                                        <li class="list-inline-item"><a href="javascript:void(0);"><img src="{{asset('images/landing/other/author-sm.png')}}" class="author" alt="author"/>{{ $item->user->name }}</a></li>
+                                        <li class="list-inline-item">{{ date('d M Y', strtotime($item->created_at)) }}</li>
+                                    </ul>
+                                    <h5 class="post-title mb-3 mt-3"><a href="{{ route('landing.news.show', $item->slug) }}">{{substr($item->title, 0, 40) . '...'}}</a></h5>
+                                    <p class="excerpt mb-0">{!! substr($item->content, 0, 80) . '...'!!}</p>
+                                </div>
+                                <div class="post-bottom clearfix d-flex align-items-center">
+                                    <div class="social-share me-auto">
+                                        <button class="toggle-button icon-share"></button>
+                                        <ul class="icons list-unstyled list-inline mb-0">
+                                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
                                         </ul>
                                     </div>
+                                    <div class="more-button float-end">
+                                        <a href="{{ route('landing.news.show', $item->slug) }}"><span class="icon-options"></span></a>
+                                    </div>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-
-                    <!-- widget tags -->
-                    <div class="widget rounded">
-                        <div class="widget-header text-center">
-                            <h3 class="widget-title">Tags</h3>
-                            <img src="images/wave.svg" class="wave" alt="wave" />
-                        </div>
-                        <div class="widget-content">
-                            @foreach($tags as $key => $tag)
-                                <a href="{{url('/users/tags',$tag->id)}}" class="tag">#{{$tag->name}}</a>
-                            @endforeach
-                        </div>
-                    </div>
-
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">1</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        </ul>
+                    </nav>
                 </div>
-
+                @include('partials/sideLanding')
             </div>
+        </div>
+    </section>
 
+    <!-- instagram feed -->
+    <div class="instagram">
+        <div class="container-xl">
+            <!-- button -->
+            <a href="#" class="btn btn-default btn-instagram">@Katen on Instagram</a>
+            <!-- images -->
+            <div class="instagram-feed d-flex flex-wrap">
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="{{asset('images/landing/insta/insta-1.jpg')}}" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="{{asset('images/landing/insta/insta-2.jpg')}}" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="{{asset('images/landing/insta/insta-3.jpg')}}" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="{{asset('images/landing/insta/insta-4.jpg')}}" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="{{asset('images/landing/insta/insta-5.jpg')}}" alt="insta-title" />
+                    </a>
+                </div>
+                <div class="insta-item col-sm-2 col-6 col-md-2">
+                    <a href="#">
+                        <img src="{{asset('images/landing/insta/insta-6.jpg')}}" alt="insta-title" />
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-</section>
 @endsection

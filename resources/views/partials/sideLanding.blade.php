@@ -4,10 +4,9 @@
         <div class="widget rounded">
             <div class="widget-about data-bg-image text-center"
                  data-bg-image="{{asset('images/landing/map-bg.png')}}">
-                <img src="{{asset('images/landing/logo.svg')}}" alt="logo" class="mb-4"/>
-                <p class="mb-4">Hello, We’re content writer who is fascinated by content fashion,
-                    celebrity and lifestyle. We helps clients bring the right content to the right
-                    people.</p>
+                <img src="{{asset('images/landing/simtukar.svg')}}" alt="logo" class="mb-4"/>
+                <p class="mb-4">Sistem Informasi Tunjungsekar memberikan segala informasi mengenai Kelurahan Tunjungsekar,
+                UMKM, Organisasi, dan </p>
                 <ul class="social-icons list-unstyled list-inline mb-0">
                     <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                     <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>

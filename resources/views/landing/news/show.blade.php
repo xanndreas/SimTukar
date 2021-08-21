@@ -29,7 +29,7 @@
                         </div>
                         <!-- featured image -->
                         <div class="featured-image">
-                            <img src="{{ !$news->photos ? '' : $news->photos[0]->getUrl() }}" alt="post-title"/>
+                            <img src="{{ isset($news->photos[0]) ? $news->photos[0]->getUrl() : asset('images/landing/posts/featured-md-3.jpg') }}" alt="post-title"/>
                         </div>
                         <!-- post content -->
                         <div class="post-content clearfix">

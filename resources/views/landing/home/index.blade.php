@@ -277,7 +277,7 @@
                                                     <li class="list-inline-item">{{ date('d M Y', strtotime($item->created_at)) }}</li>
                                                 </ul>
                                                 <h5 class="post-title"><a href="{{ route('landing.news.show', $item->slug) }}">{{substr($item->title, 0, 40) . '...'}}</a></h5>
-                                                <p class="excerpt mb-0">{!! substr($item->content, 0, 40) . '...'!!}</p>
+                                                <p class="excerpt mb-0">{!! substr($item->content, 0, 80) . '...'!!}</p>
                                                 <div class="post-bottom clearfix d-flex align-items-center">
                                                     <div class="social-share me-auto">
                                                         <button class="toggle-button icon-share"></button>
